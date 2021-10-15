@@ -1,7 +1,7 @@
 import GamesComponent from "./GamesComponent";
 import { connect } from "react-redux";
 import { addGameAc } from "../../redux/gamesReducer";
-import { deleteGameAc,sortByAscendingOrderAc,sortByDescendingOrderAc,upGameAc,downGameAc } from "../../redux/gamesReducer";
+import { deleteGameAc,sortByAscendingOrderAc,sortByDescendingOrderAc,upGameAc,downGameAc,fetchAllDataFromServer } from "../../redux/gamesReducer";
 const mapStateToProps = (state) => {
   return {
     gamesPage: state.gamesPage,
@@ -33,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     downGame : (id) => {
       dispatch(downGameAc(id));
+    },
+    loadGames: () => {
+      dispatch(fetchAllDataFromServer())
     }
   };
 };

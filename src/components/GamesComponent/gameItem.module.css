@@ -1,7 +1,41 @@
 .game {
-    text-align: center
+ 
+  text-align: center;
 }
 
-.gameImage img {
-    width:80px
+.nameGame {
+  color: rgb(219, 27, 27);
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+
+}
+
+/* .gameImage img {
+  width: 10%;
+} */
+
+.blueButton {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.Buttons {
+  padding: 10px;
+  margin-right: 5px;
+}
+
+.menu {
+  position:fixed;
+  right: 10px;
+  
+ 
+ 
+  width: 415px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.content {
+width: 67rem;
 }

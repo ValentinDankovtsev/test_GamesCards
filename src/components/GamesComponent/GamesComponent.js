@@ -1,6 +1,8 @@
 import React from "react";
 import GameItem from "./GameItem";
+import style from "./gameItem.module.css";
 import { Field, reduxForm } from "redux-form";
+import { Button, Form } from "react-bootstrap";
 
 const addGameForm = (props) => {
   const { handleSubmit } = props;
@@ -8,13 +10,13 @@ const addGameForm = (props) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <Field name="newGame" component="input" type="text" />
+          <Field className="form-control" name="newGame" component="input" type="text" placeholder="Enter name of game"/>
         </div>
         <div>
-          <Field name="url" component="input" />
+          <Field className="form-control" name="url" component="input" placeholder='Enter url image of game'/>
         </div>
         <div>
-          <button>add</button>
+          <button className="btn btn-primary">Add Game</button>
         </div>
       </form>
     </div>
@@ -31,8 +33,8 @@ const GamesComponent = (props) => {
       icon_url={e.icon_url}
       id={e.id}
       deleteGame={props.deleteGame}
-      upGame= {props.upGame}
-      downGame = {props.downGame}
+      upGame={props.upGame}
+      downGame={props.downGame}
       // data={props.state.data}
     />
   ));
@@ -48,17 +50,34 @@ const GamesComponent = (props) => {
   const onSortDescendingOrder = () => {
     props.sortByDescendingOrder();
   };
-  
+
+  const onLoadGames = () => {
+    props.loadGames();
+  };
 
   return (
-    <div>
-      <div>{gamesElements}</div>
-      <div>
-        <button onClick={onSortAscendingOrder}>Ascending Order</button>
-        <button onClick={onSortDescendingOrder}>Descending Order</button>
+    <>
+    
+      <div className={style.menu}>
+        <AddGameFormRedux onSubmit={onSubmitForm} />
+        <hr></hr>
+        <Button variant="outline-info" onClick={onLoadGames}>
+          Load Games
+        </Button>
+        <Button variant="outline-info" onClick={onSortAscendingOrder}>
+          Ascending Order
+        </Button>
+        <Button variant="outline-info" onClick={onSortDescendingOrder}>
+          Descending Order
+        </Button>
       </div>
-      <AddGameFormRedux onSubmit={onSubmitForm} />
-    </div>
+      
+
+      <div className={style.content}><div className="d-flex align-content-stretch flex-wrap">{gamesElements}</div></div>
+      
+    
+    </>
+    
   );
 };
 

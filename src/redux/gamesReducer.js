@@ -5,6 +5,20 @@ const SORT_BY_NAME_DES = "SORT_BY_NAME_DES";
 const UP_GAME = "UP_GAME";
 const DOWN_GAME = "DOWN_GAME";
 
+const FETCH_ALL_ITEMS_SUCCESS = "FETCH_ALL_ITEMS_SUCCESS";
+
+export function fetchAllDataFromServer() {
+  return (dispatch) => {
+    fetch("https://pcg-appstore.s3.amazonaws.com/applications_for_import.json", {
+      mode: "no-cors",referrerPolicy: "origin-when-cross-origin",ContentType: "application/json",
+    })
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({ type: FETCH_ALL_ITEMS_SUCCESS, payload: data })
+      );
+  };
+}
+
 const inititalState = {
   data: [
     {
@@ -100,11 +114,11 @@ const gamesReducer = (state = inititalState, action) => {
       return {
         ...state,
         data: [
-          ...state.data,
           {
             name: action.payload.name,
             icon_url: action.payload.url,
           },
+          ...state.data,
         ],
       };
     case DEL_GAME:
@@ -132,7 +146,6 @@ const gamesReducer = (state = inititalState, action) => {
         } else {
           return null;
         }
-        // Return the array
       }
 
       const swappedArrayUp = swapItemsUp(
@@ -171,6 +184,10 @@ const gamesReducer = (state = inititalState, action) => {
           data: swappedArrayDown,
         };
       } else return state;
+    case FETCH_ALL_ITEMS_SUCCESS:
+      return Object.assign({}, state, {
+        data: action.payload,
+      });
     default:
       return state;
   }
