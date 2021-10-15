@@ -1,29 +1,73 @@
 import React from "react";
 import GameItem from "./GameItem";
 import style from "./gameItem.module.css";
-import { Field, reduxForm } from "redux-form";
-import { Button, Form } from "react-bootstrap";
+import { Form, Field } from 'react-final-form'
+import { Button} from "react-bootstrap";
 
-const addGameForm = (props) => {
-  const { handleSubmit } = props;
+// const addGameForm = (props) => {
+//   const { handleSubmit } = props;
+//   return (
+//     <div>
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <Field
+//             className="form-control"
+//             name="newGame"
+//             component="input"
+//             type="text"
+//             placeholder="Enter name of game"
+//           />
+//         </div>
+//         <div>
+//           <Field
+//             className="form-control"
+//             name="url"
+//             component="input"
+//             placeholder="Enter url image of game"
+//           />
+//         </div>
+//         <div>
+//           <button className="btn btn-primary">Add Game</button>
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };
+
+
+
+const MyForm = (props) => {
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <Field className="form-control" name="newGame" component="input" type="text" placeholder="Enter name of game"/>
-        </div>
-        <div>
-          <Field className="form-control" name="url" component="input" placeholder='Enter url image of game'/>
-        </div>
-        <div>
-          <button className="btn btn-primary">Add Game</button>
-        </div>
-      </form>
-    </div>
+    <Form onSubmit={props.onSubmit}>
+      {({ handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <Field
+              className="form-control"
+              name="newGame"
+              component="input"
+              type="text"
+              placeholder="Enter name of game"
+            />
+          </div>
+          <div>
+            <Field
+              className="form-control"
+              name="url"
+              component="input"
+              placeholder="Enter url image of game"
+            />
+          </div>
+          <div>
+            <button type="submit" className="btn btn-primary">Add Game</button>
+          </div>
+        </form>
+      )}
+    </Form>
   );
 };
 
-const AddGameFormRedux = reduxForm({ form: "addGamesFormsd" })(addGameForm);
+// const AddGameFormRedux = reduxForm({ form: "addGamesFormsd" })(addGameForm);
 
 const GamesComponent = (props) => {
   const gamesElements = props.gamesPage.data.map((e, index) => (
@@ -57,9 +101,8 @@ const GamesComponent = (props) => {
 
   return (
     <>
-    
       <div className={style.menu}>
-        <AddGameFormRedux onSubmit={onSubmitForm} />
+        <MyForm onSubmit={onSubmitForm} />
         <hr></hr>
         <Button variant="outline-info" onClick={onLoadGames}>
           Load Games
@@ -71,13 +114,13 @@ const GamesComponent = (props) => {
           Descending Order
         </Button>
       </div>
-      
 
-      <div className={style.content}><div className="d-flex align-content-stretch flex-wrap">{gamesElements}</div></div>
-      
-    
+      <div className={style.content}>
+        <div className="d-flex align-content-stretch flex-wrap">
+          {gamesElements}
+        </div>
+      </div>
     </>
-    
   );
 };
 
