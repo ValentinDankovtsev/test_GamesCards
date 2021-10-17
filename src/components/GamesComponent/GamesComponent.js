@@ -10,35 +10,6 @@ import {
 } from "../../utils/formControl";
 import ErrorBlock from "./ErrorBlock/ErrorBlock";
 import Spinner from "./Spinner/Spinner";
-// const addGameForm = (props) => {
-//   const { handleSubmit } = props;
-//   return (
-//     <div>
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <Field
-//             className="form-control"
-//             name="newGame"
-//             component="input"
-//             type="text"
-//             placeholder="Enter name of game"
-//           />
-//         </div>
-//         <div>
-//           <Field
-//             className="form-control"
-//             name="url"
-//             component="input"
-//             placeholder="Enter url image of game"
-//           />
-//         </div>
-//         <div>
-//           <button className="btn btn-primary">Add Game</button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
 
 const AddGameForm = (props) => {
   return (
@@ -90,8 +61,6 @@ const AddGameForm = (props) => {
   );
 };
 
-// const AddGameFormRedux = reduxForm({ form: "addGamesFormsd" })(addGameForm);
-
 const GamesComponent = (props) => {
   const gamesElements = props.gamesPage.data.map((e, index) => (
     <GameItem
@@ -103,7 +72,6 @@ const GamesComponent = (props) => {
       upGame={props.upGame}
       downGame={props.downGame}
       error={props.error}
-      // data={props.state.data}
     />
   ));
 
@@ -126,12 +94,10 @@ const GamesComponent = (props) => {
   if (props.gamesPage.isLoading) {
     return <Spinner />;
   }
-  
+
   if (props.gamesPage.error) {
     return <ErrorBlock />;
   }
-
-  
 
   return (
     <>

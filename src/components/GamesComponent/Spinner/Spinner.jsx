@@ -1,12 +1,12 @@
-import React from 'react';
-import loading from '../../../assets/loading.svg'
+import React from "react";
+import loading from "../../../assets/loading.svg";
 
 const Spinner = () => {
-    return (
-        <div>
+  return (
+    <div>
       <img src={loading} alt="loader" />
     </div>
-    )
-}
+  );
+};
 
-export default Spinner
+export default Spinner;

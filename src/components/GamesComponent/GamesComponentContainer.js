@@ -1,20 +1,22 @@
 import GamesComponent from "./GamesComponent";
 import { connect } from "react-redux";
 import { addGameAc } from "../../redux/gamesReducer";
-import { deleteGameAc,sortByAscendingOrderAc,sortByDescendingOrderAc,upGameAc,downGameAc,fetchAllDataFromServer } from "../../redux/gamesReducer";
+import {
+  deleteGameAc,
+  sortByAscendingOrderAc,
+  sortByDescendingOrderAc,
+  upGameAc,
+  downGameAc,
+  fetchAllDataFromServer,
+} from "../../redux/gamesReducer";
 const mapStateToProps = (state) => {
   return {
     gamesPage: state.gamesPage,
-    
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // updateNewMessageChange:(text)=>{
-    //   dispatch(updateMessageActionCreator(text));
-    // }
-
     addGame: (name, url) => {
       dispatch(addGameAc(name, url));
     },
@@ -22,31 +24,23 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteGameAc(name));
     },
 
-    sortByAscendingOrder:()=> {
-      dispatch(sortByAscendingOrderAc())
+    sortByAscendingOrder: () => {
+      dispatch(sortByAscendingOrderAc());
     },
 
-    sortByDescendingOrder:()=>{
-      dispatch(sortByDescendingOrderAc())
+    sortByDescendingOrder: () => {
+      dispatch(sortByDescendingOrderAc());
     },
-    upGame : (id) => {
+    upGame: (id) => {
       dispatch(upGameAc(id));
     },
-    downGame : (id) => {
+    downGame: (id) => {
       dispatch(downGameAc(id));
     },
     loadGames: () => {
-      dispatch(fetchAllDataFromServer())
-    }
+      dispatch(fetchAllDataFromServer());
+    },
   };
 };
-
-// let AuthRedirectComponent = withAuthRedirect(Dialogs)
-
-// dialogsContainerComponent = connect( mapStateToPropsForRedirect)(dialogsContainerComponent)
-
-// const ContainerDialogPage = connect(mapStateToProps,mapDispatchToProps)(AuthRedirectComponent)
-
-// export default ContainerDialogPage;
 
 export default connect(mapStateToProps, mapDispatchToProps)(GamesComponent);
