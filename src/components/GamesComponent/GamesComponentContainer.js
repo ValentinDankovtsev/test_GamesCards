@@ -5,6 +5,7 @@ import { deleteGameAc,sortByAscendingOrderAc,sortByDescendingOrderAc,upGameAc,do
 const mapStateToProps = (state) => {
   return {
     gamesPage: state.gamesPage,
+    
   };
 };
 

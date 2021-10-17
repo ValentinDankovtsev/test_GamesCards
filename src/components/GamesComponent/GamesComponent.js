@@ -1,9 +1,15 @@
 import React from "react";
 import GameItem from "./GameItem";
 import style from "./gameItem.module.css";
-import { Form, Field } from 'react-final-form'
-import { Button} from "react-bootstrap";
-
+import { Form, Field } from "react-final-form";
+import { Button } from "react-bootstrap";
+import {
+  required,
+  minLength,
+  composeValidators,
+} from "../../utils/formControl";
+import ErrorBlock from "./ErrorBlock/ErrorBlock";
+import Spinner from "./Spinner/Spinner";
 // const addGameForm = (props) => {
 //   const { handleSubmit } = props;
 //   return (
@@ -34,32 +40,49 @@ import { Button} from "react-bootstrap";
 //   );
 // };
 
-
-
-const MyForm = (props) => {
+const AddGameForm = (props) => {
   return (
     <Form onSubmit={props.onSubmit}>
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
+          <Field
+            className="form-control"
+            name="newGame"
+            validate={composeValidators(required, minLength(4))}
+          >
+            {({ input, meta }) => (
+              <div className="form-control">
+                <input
+                  {...input}
+                  type="text"
+                  placeholder="Enter name of game"
+                />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+
+          <Field
+            className="form-control"
+            name="url"
+            validate={composeValidators(required, minLength(8))}
+          >
+            {({ input, meta }) => (
+              <div className="form-control">
+                <input
+                  {...input}
+                  type="text"
+                  placeholder="Enter url image of game"
+                />
+                {meta.error && meta.touched && <span>{meta.error}</span>}
+              </div>
+            )}
+          </Field>
+
           <div>
-            <Field
-              className="form-control"
-              name="newGame"
-              component="input"
-              type="text"
-              placeholder="Enter name of game"
-            />
-          </div>
-          <div>
-            <Field
-              className="form-control"
-              name="url"
-              component="input"
-              placeholder="Enter url image of game"
-            />
-          </div>
-          <div>
-            <button type="submit" className="btn btn-primary">Add Game</button>
+            <button type="submit" className="btn btn-primary">
+              Add Game
+            </button>
           </div>
         </form>
       )}
@@ -79,6 +102,7 @@ const GamesComponent = (props) => {
       deleteGame={props.deleteGame}
       upGame={props.upGame}
       downGame={props.downGame}
+      error={props.error}
       // data={props.state.data}
     />
   ));
@@ -99,10 +123,20 @@ const GamesComponent = (props) => {
     props.loadGames();
   };
 
+  if (props.gamesPage.isLoading) {
+    return <Spinner />;
+  }
+  
+  if (props.gamesPage.error) {
+    return <ErrorBlock />;
+  }
+
+  
+
   return (
     <>
       <div className={style.menu}>
-        <MyForm onSubmit={onSubmitForm} />
+        <AddGameForm onSubmit={onSubmitForm} />
         <hr></hr>
         <Button variant="outline-info" onClick={onLoadGames}>
           Load Games
@@ -114,7 +148,6 @@ const GamesComponent = (props) => {
           Descending Order
         </Button>
       </div>
-
       <div className={style.content}>
         <div className="d-flex align-content-stretch flex-wrap">
           {gamesElements}
